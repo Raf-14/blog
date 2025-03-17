@@ -74,17 +74,36 @@
             </h3>
                 <!-- ------------------------ DISPLAY ARTICLE--------------------------------------- -->
             <?php foreach ($allArticles as $index => $article):?>
-                
-                <div class="blog-post">
-                    <img alt="<?= $article['title']?>" src="<?= $article['image']?>"/>
-                    <h2 class="blog-post-title"><?= $article['title']?></h2>
-                    <p class="blog-post-meta"><?= format_date(($article['date']), $format = "d/m/Y H:i")?> par <a href="#"><?= $article['firstname'] . ' ' . $article['lastname']?></a></p>
-                    <p><?= $article['content'] ?></p>
-                </div><!-- /.blog-post -->
-
-           <?php endforeach; ?>
-
-
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <img alt="<?= $article['title']?>" src="<?= $article['image']?>"/>
+                        <h4 class="card-title">
+                            <a href="#"><h2 class="blog-post-title"><?= $article['title']?></h2></a>
+                        </h4>
+                        <div class="card-meta">
+                            <span class="text-muted">Posted by</span>
+                            <a href="#"><?= $article['firstname'] . ' ' . $article['lastname']?></a>
+                            <span class="text-muted"><?= format_date(($article['date']), $format = "d/m/Y H:i")?></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <?= $article['content']?>
+                        </p>
+                        <a href="#" class="stretched-link">Continue reading...</a>
+                        <div class="card-footer">
+                            <span class="text-muted">Comments</span>
+                            <a href="#">3</a>
+                        </div>
+                    
+                        <div class="card-footer">
+                            <span class="text-muted">Likes</span>
+                            <a href="#">12</a>
+                        </div>
+                    </div>
+            </div>
+            <!-- /.blog-post -->
+            <?php endforeach; ?>
             <nav class="blog-pagination">
                 <a class="btn btn-outline-primary" href="#">Older</a>
                 <a class="btn btn-outline-secondary disabled" href="#">Newer</a>

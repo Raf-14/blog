@@ -39,6 +39,30 @@ class Author
         $this->image = $data['image']; // Image de l'auteur
     }
 
+     /**
+     * Ajouter un auteur à la base de données
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $email
+     * @param string $phone
+     * @param string $address
+     * @param string $image
+     * @return bool
+     */
+    public static function addAuthor($firstname, $lastname, $email, $phone, $address, $image) {
+        global $db;
+
+        // Préparation de la requête d'insertion
+        $query = $db->prepare('
+            INSERT INTO authors (firstname, lastname, email, phone, address, image)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ');
+
+        // Exécution de la requête
+        return $query->execute([$firstname, $lastname, $email, $phone, $address, $image]);
+    }
+
+
     /**
      * Récupère tous les auteurs.
      * @return array
@@ -54,6 +78,40 @@ class Author
         $reqAuthors->execute();
         return $reqAuthors->fetchAll();
     }
+    /**
+     * Récupérer un auteur par son ID.
+     * @param int $id
+     * @return Author
+     */
+    public static function getAuthorById($id) {
+        return new self($id); // Utilisation du constructeur pour récupérer un auteur par son ID
+    }
+
+    /**
+     * Mettre à jour les informations d'un auteur.
+     * @param int $id
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $email
+     * @param string $phone
+     * @param string $address
+     * @param string $image
+     * @return bool
+     */
+    public static function updateAuthor($id, $firstname, $lastname, $email, $phone, $address, $image) {
+        global $db;
+
+        // Préparation de la requête de mise à jour
+        $req = $db->prepare('
+            UPDATE authors
+            SET firstname = ?, lastname = ?, email = ?, phone = ?, address = ?, image = ?
+            WHERE id = ?
+        ');
+
+        // Exécution de la requête
+        return $req->execute([$firstname, $lastname, $email, $phone, $address, $image, $id]);
+    }
+
 
     /**
      * Récupère l'URL complète de l'image de l'auteur.
@@ -63,6 +121,24 @@ class Author
     public function getImageUrl($baseUrl) {
         return $baseUrl . 'images/authors/' . $this->image;
     }
+    /**
+     * Supprimer un auteur de la base de données.
+     * @param int $id
+     * @return bool
+     */
+    public static function deleteAuthor($id) {
+        global $db;
+
+        // Préparation de la requête de suppression
+        $req = $db->prepare('
+            DELETE FROM authors
+            WHERE id = ?
+        ');
+
+        // Exécution de la requête
+        return $req->execute([$id]);
+    }
+
 }
 
 // // Exemple de récupération de l'auteur

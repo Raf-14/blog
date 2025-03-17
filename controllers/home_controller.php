@@ -7,5 +7,5 @@ $allArticles = Articles::getAllArticles();
 $allCategories = Category::getAllCategories();
 
 $lastArticle = Articles::getLastArticle();
-$lastArticleLeft = Articles::getLastArticle((13));
-$lastArticleRight = Articles::getLastArticle((12));
+$lastArticleLeft = Articles::getLastArticle((1));
+$lastArticleRight = Articles::getLastArticle((2));
